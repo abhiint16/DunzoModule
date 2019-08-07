@@ -2,4 +2,5 @@
     <string name="app_name">DunzoModule</string>
     <string name="enter_search_string_text">Enter Search String</string>
     <string name="proceed_text">Proceed</string>
+    <string name="search_string_error">Search String can\'t be empty</string>
 </resources>

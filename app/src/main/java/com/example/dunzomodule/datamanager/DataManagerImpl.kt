@@ -6,6 +6,7 @@ import com.example.dunzomodule.datamanager.prefhelper.PreferenceHelper
 import javax.inject.Inject
 
 class DataManagerImpl : DataManager {
+
     var apiHelper: ApiHelper
     var dbHelper: DBHelper
     var preferenceHelper: PreferenceHelper
@@ -16,4 +17,27 @@ class DataManagerImpl : DataManager {
         this.dbHelper = dbHelper
         this.preferenceHelper = preferenceHelper
     }
+
+
+    ///////////////////    Preferance Starts   //////////////////////////
+
+
+    override fun saveSearchString(searchString: String) {
+        preferenceHelper.saveSearchString(searchString)
+    }
+
+    override fun removeSharedPreference() {
+        preferenceHelper.removeSharedPreference()
+    }
+
+    override fun getSearchString(): String {
+        return preferenceHelper.getSearchString()
+    }
+
+
+    ///////////////////////    Prefernace ends    ///////////////////////////
+
+
+    //////////////////////    API starts      //////////////////////////////
+
 }

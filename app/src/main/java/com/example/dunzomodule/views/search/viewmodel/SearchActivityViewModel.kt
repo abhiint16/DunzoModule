@@ -14,7 +14,8 @@ class SearchActivityViewModel : ViewModel {
         this.dataManager = dataManager
     }
 
-    fun testFun() {
+    fun saveSearchStringToPref(searchString: String) {
+        dataManager.saveSearchString(searchString)
         mutableLiveData.value = true
     }
 
