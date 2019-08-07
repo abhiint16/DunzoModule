@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.dunzomodule.R
 import com.example.dunzomodule.databinding.ActivityHomeBinding
+import com.example.dunzomodule.views.detail.viewmodel.DetailActivityViewModel
 import com.example.dunzomodule.views.home.viewmodel.HomeActivityViewModel
 import dagger.android.AndroidInjection
 import javax.inject.Inject
@@ -18,7 +19,7 @@ class DetailActivity : AppCompatActivity() {
     @Inject
     lateinit var factory: ViewModelProvider.Factory
 
-    lateinit var homeActivityViewModel: HomeActivityViewModel
+    lateinit var detailActivityViewModel: DetailActivityViewModel
 
     lateinit var binding: ActivityHomeBinding
 
@@ -28,15 +29,15 @@ class DetailActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
 
-        homeActivityViewModel = ViewModelProviders.of(this, factory).get(HomeActivityViewModel::class.java)
+        detailActivityViewModel = ViewModelProviders.of(this, factory).get(DetailActivityViewModel::class.java)
 
-        homeActivityViewModel.testFun()
+        detailActivityViewModel.testFun()
 
         initObserver()
     }
 
     private fun initObserver() {
-        homeActivityViewModel.observeForLiveData().observe(this, Observer { boolean ->
+        detailActivityViewModel.observeForLiveData().observe(this, Observer { boolean ->
             Toast.makeText(this, "Live Data Observed", Toast.LENGTH_LONG).show()
         })
     }

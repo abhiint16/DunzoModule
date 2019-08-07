@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">DunzoModule</string>
+    <string name="enter_search_string_text">Enter Search String</string>
+    <string name="proceed_text">Proceed</string>
 </resources>

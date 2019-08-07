@@ -8,8 +8,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.dunzomodule.R
-import com.example.dunzomodule.databinding.ActivityHomeBinding
-import com.example.dunzomodule.views.home.viewmodel.HomeActivityViewModel
+import com.example.dunzomodule.databinding.ActivitySearchBinding
+import com.example.dunzomodule.views.search.viewmodel.SearchActivityViewModel
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
@@ -18,25 +18,25 @@ class SearchActivity : AppCompatActivity() {
     @Inject
     lateinit var factory: ViewModelProvider.Factory
 
-    lateinit var homeActivityViewModel: HomeActivityViewModel
+    lateinit var searchActivityViewModel: SearchActivityViewModel
 
-    lateinit var binding: ActivityHomeBinding
+    lateinit var binding: ActivitySearchBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AndroidInjection.inject(this)
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_search)
 
-        homeActivityViewModel = ViewModelProviders.of(this, factory).get(HomeActivityViewModel::class.java)
+        searchActivityViewModel = ViewModelProviders.of(this, factory).get(SearchActivityViewModel::class.java)
 
-        homeActivityViewModel.testFun()
+        searchActivityViewModel.testFun()
 
         initObserver()
     }
 
     private fun initObserver() {
-        homeActivityViewModel.observeForLiveData().observe(this, Observer { boolean ->
+        searchActivityViewModel.observeForLiveData().observe(this, Observer { boolean ->
             Toast.makeText(this, "Live Data Observed", Toast.LENGTH_LONG).show()
         })
     }
