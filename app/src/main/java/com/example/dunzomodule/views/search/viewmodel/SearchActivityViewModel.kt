@@ -8,7 +8,7 @@ import com.example.dunzomodule.datamanager.DataManager
 class SearchActivityViewModel : ViewModel {
     var dataManager: DataManager
 
-    internal var mutableLiveData = MutableLiveData<Boolean>()
+    var mutableLiveData = MutableLiveData<Boolean>()
 
     constructor(dataManager: DataManager) : super() {
         this.dataManager = dataManager

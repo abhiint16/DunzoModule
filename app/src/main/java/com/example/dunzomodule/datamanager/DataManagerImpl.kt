@@ -3,6 +3,9 @@ package com.example.dunzomodule.datamanager
 import com.example.dunzomodule.datamanager.apihelper.ApiHelper
 import com.example.dunzomodule.datamanager.dbhelper.DBHelper
 import com.example.dunzomodule.datamanager.prefhelper.PreferenceHelper
+import com.example.dunzomodule.views.home.model.SearchBaseDataModel
+import io.reactivex.Single
+import retrofit2.Response
 import javax.inject.Inject
 
 class DataManagerImpl : DataManager {
@@ -39,5 +42,9 @@ class DataManagerImpl : DataManager {
 
 
     //////////////////////    API starts      //////////////////////////////
+
+    override fun getSearchData(searchString: String, startNumber: Int): Single<Response<SearchBaseDataModel>> {
+        return apiHelper.getSearchData(searchString, startNumber)
+    }
 
 }

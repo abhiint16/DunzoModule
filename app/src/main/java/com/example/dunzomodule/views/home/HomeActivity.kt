@@ -30,13 +30,13 @@ class HomeActivity : AppCompatActivity() {
 
         homeActivityViewModel = ViewModelProviders.of(this, factory).get(HomeActivityViewModel::class.java)
 
-        homeActivityViewModel.testFun()
+        homeActivityViewModel.getSearchData()
 
         initObserver()
     }
 
     private fun initObserver() {
-        homeActivityViewModel.observeForLiveData().observe(this, Observer { boolean ->
+        homeActivityViewModel.observeForBaseLiveData().observe(this, Observer { boolean ->
             Toast.makeText(this, "Live Data Observed", Toast.LENGTH_LONG).show()
         })
     }
