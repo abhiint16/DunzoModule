@@ -46,7 +46,7 @@ class HomeRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
         fun bind(item: ItemsInnerObjectDataModel) {
-            //binding.item = item
+            binding.item = item
         }
     }
 }
