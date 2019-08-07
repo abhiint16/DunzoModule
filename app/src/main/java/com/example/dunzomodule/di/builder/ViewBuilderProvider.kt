@@ -1,7 +1,7 @@
 package com.example.dunzomodule.di.builder
 
-import com.example.dunzomodule.views.HomeActivity
-import com.example.dunzomodule.views.di.HomeActivityModule
+import com.example.dunzomodule.views.home.HomeActivity
+import com.example.dunzomodule.views.home.di.HomeActivityModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

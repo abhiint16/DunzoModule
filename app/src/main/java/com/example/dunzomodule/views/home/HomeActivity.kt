@@ -1,4 +1,4 @@
-package com.example.dunzomodule.views
+package com.example.dunzomodule.views.home
 
 import android.os.Bundle
 import android.widget.Toast
@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.dunzomodule.R
 import com.example.dunzomodule.databinding.ActivityHomeBinding
-import com.example.dunzomodule.views.viewmodel.HomeActivityViewModel
+import com.example.dunzomodule.views.home.viewmodel.HomeActivityViewModel
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 

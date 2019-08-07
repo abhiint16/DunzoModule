@@ -1,9 +1,9 @@
-package com.example.dunzomodule.views.di
+package com.example.dunzomodule.views.home.di
 
 import androidx.lifecycle.ViewModelProvider
 import com.example.dunzomodule.datamanager.DataManager
 import com.example.dunzomodule.utils.ViewModelProviderFactory
-import com.example.dunzomodule.views.viewmodel.HomeActivityViewModel
+import com.example.dunzomodule.views.home.viewmodel.HomeActivityViewModel
 import dagger.Module
 import dagger.Provides
 

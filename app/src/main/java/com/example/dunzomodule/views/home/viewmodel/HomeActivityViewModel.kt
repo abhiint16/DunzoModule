@@ -1,4 +1,4 @@
-package com.example.dunzomodule.views.viewmodel
+package com.example.dunzomodule.views.home.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
