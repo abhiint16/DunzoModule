@@ -26,6 +26,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="10dp"
+                    android:scaleType="fitXY"
+                    app:imageUrl="@{item.pagemap.cse_image.get(0).src}"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"/>
 
