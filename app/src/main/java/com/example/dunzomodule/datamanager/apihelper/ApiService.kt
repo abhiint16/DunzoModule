@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 interface ApiService {
 
-    @GET
+    @GET(".")
     fun getSearchData(
         @Query("q") searchString: String,
         @Query("cx") cx: String,
