@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<layout>
 
-</LinearLayout>
+    <data>
+        <variable name="item"
+                  type="Boolean"/>
+    </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:id="@+id/hor_last_item_load_more_container"
+                  android:layout_width="match_parent"
+                  android:layout_height="50dp"
+                  android:background="@android:color/transparent"
+                  android:elevation="5dp"
+                  android:gravity="center"
+                  android:orientation="vertical">
+
+        <androidx.core.widget.ContentLoadingProgressBar
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+</layout>

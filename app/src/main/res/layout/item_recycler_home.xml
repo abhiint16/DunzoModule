@@ -5,6 +5,8 @@
 
         <variable name="item"
                   type="com.example.dunzomodule.views.home.model.items.ItemsInnerObjectDataModel"/>
+        <variable name="viewModel"
+                  type="com.example.dunzomodule.views.home.viewmodel.HomeActivityViewModel"/>
 
     </data>
 
@@ -14,6 +16,7 @@
             android:layout_height="wrap_content"
             app:contentPadding="20dp"
             android:layout_margin="20dp"
+            android:onClick="@{() -> viewModel.homeItemClick(item)}"
             android:background="@android:color/white"
             app:cardCornerRadius="8dp">
         <androidx.constraintlayout.widget.ConstraintLayout
