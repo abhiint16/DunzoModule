@@ -7,10 +7,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import com.example.dunzomodule.AppConstants
 import com.example.dunzomodule.R
-import com.example.dunzomodule.databinding.ActivityHomeBinding
+import com.example.dunzomodule.databinding.ActivityDetailBinding
 import com.example.dunzomodule.views.detail.viewmodel.DetailActivityViewModel
-import com.example.dunzomodule.views.home.viewmodel.HomeActivityViewModel
+import com.example.dunzomodule.views.home.model.items.ItemsInnerObjectDataModel
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
@@ -21,19 +22,34 @@ class DetailActivity : AppCompatActivity() {
 
     lateinit var detailActivityViewModel: DetailActivityViewModel
 
-    lateinit var binding: ActivityHomeBinding
+    lateinit var binding: ActivityDetailBinding
+
+    lateinit var itemsInnerObjectDataModel: ItemsInnerObjectDataModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        AndroidInjection.inject(this)
-
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
-
-        detailActivityViewModel = ViewModelProviders.of(this, factory).get(DetailActivityViewModel::class.java)
-
-        detailActivityViewModel.testFun()
-
+        initDagger()
+        initBinding()
+        initViewModel()
         initObserver()
+        setUp()
+    }
+
+    private fun setUp() {
+        itemsInnerObjectDataModel = intent.getParcelableExtra(AppConstants.IntentKey.ITEM_CLICK_DATA)!!
+        binding.item = itemsInnerObjectDataModel
+    }
+
+    private fun initViewModel() {
+        detailActivityViewModel = ViewModelProviders.of(this, factory).get(DetailActivityViewModel::class.java)
+    }
+
+    private fun initBinding() {
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
+    }
+
+    private fun initDagger() {
+        AndroidInjection.inject(this)
     }
 
     private fun initObserver() {

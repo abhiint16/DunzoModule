@@ -27,28 +27,28 @@ android {
     productFlavors {
         local {
             versionNameSuffix ".local"
-            buildConfigField 'String', 'BASE_URL', '"https://www.googleapis.com/customsearch/v1"'
+            buildConfigField 'String', 'BASE_URL', '"https://www.googleapis.com/customsearch/v1/"'
             buildConfigField 'String', 'CX', '"011476162607576381860:ra4vmliv9ti"'
             buildConfigField 'String', 'API_KEY', '"AIzaSyDpMYRjzmp67tQoGDmCk8iun_rY657Lefs"'
         }
 
         dev {
             versionNameSuffix ".dev"
-            buildConfigField 'String', 'BASE_URL', '"https://www.googleapis.com/customsearch/v1"'
+            buildConfigField 'String', 'BASE_URL', '"https://www.googleapis.com/customsearch/v1/"'
             buildConfigField 'String', 'CX', '"011476162607576381860:ra4vmliv9ti"'
             buildConfigField 'String', 'API_KEY', '"AIzaSyDpMYRjzmp67tQoGDmCk8iun_rY657Lefs"'
         }
 
         staging {
             versionNameSuffix ".stage"
-            buildConfigField 'String', 'BASE_URL', '"https://www.googleapis.com/customsearch/v1"'
+            buildConfigField 'String', 'BASE_URL', '"https://www.googleapis.com/customsearch/v1/"'
             buildConfigField 'String', 'CX', '"011476162607576381860:ra4vmliv9ti"'
             buildConfigField 'String', 'API_KEY', '"AIzaSyDpMYRjzmp67tQoGDmCk8iun_rY657Lefs"'
         }
 
         prod {
             versionNameSuffix ".prod"
-            buildConfigField 'String', 'BASE_URL', '"https://www.googleapis.com/customsearch/v1"'
+            buildConfigField 'String', 'BASE_URL', '"https://www.googleapis.com/customsearch/v1/"'
             buildConfigField 'String', 'CX', '"011476162607576381860:ra4vmliv9ti"'
             buildConfigField 'String', 'API_KEY', '"AIzaSyDpMYRjzmp67tQoGDmCk8iun_rY657Lefs"'
         }
