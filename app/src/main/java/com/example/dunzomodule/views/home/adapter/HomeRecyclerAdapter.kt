@@ -12,6 +12,7 @@ import com.example.dunzomodule.views.home.model.SearchBaseDataModel
 import com.example.dunzomodule.views.home.model.items.ItemsInnerObjectDataModel
 import com.example.dunzomodule.views.home.model.queries.QueryDataModel
 import com.example.dunzomodule.views.home.viewmodel.HomeActivityViewModel
+import androidx.recyclerview.widget.DiffUtil
 
 
 class HomeRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -24,12 +25,20 @@ class HomeRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var startPos = 0
 
     fun addData(searchBaseDataModel: SearchBaseDataModel) {
+
+        val diffCallback = RecyclerDiffCallback(this.itemDataModelList, searchBaseDataModel.items!!)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+
         this.queryDataModel = searchBaseDataModel.queries
-        searchBaseDataModel.items?.let {
+        this.itemDataModelList.clear()
+        this.itemDataModelList.addAll(searchBaseDataModel.items!!)
+        diffResult.dispatchUpdatesTo(this)
+
+        /*searchBaseDataModel.items?.let {
             this.itemDataModelList.addAll(it)
             notifyItemRangeInserted(startPos, it.size)
             startPos += it.size
-        }
+        }*/
     }
 
     fun setViewModel(homeActivityViewModel: HomeActivityViewModel) {

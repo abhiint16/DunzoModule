@@ -1,10 +1,11 @@
 package com.example.dunzomodule.utils
 
+import io.reactivex.MaybeObserver
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
 import retrofit2.Response
 
-abstract class NetworkResponse<ServerResponse, DesiredResponse> : SingleObserver<ServerResponse> {
+abstract class NetworkResponse<ServerResponse, DesiredResponse> : MaybeObserver<ServerResponse> {
 
     abstract fun onApiSuccess(desiredResponse: DesiredResponse)
 

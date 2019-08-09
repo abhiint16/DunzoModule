@@ -10,6 +10,8 @@ import com.example.dunzomodule.views.home.model.SearchBaseDataModel
 import com.example.dunzomodule.views.home.model.items.ItemsInnerObjectDataModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import io.reactivex.functions.Consumer
+import io.reactivex.functions.Predicate
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Response
 
@@ -35,8 +37,25 @@ class HomeActivityViewModel : ViewModel {
 
         dataManager.getSearchData(dataManager.getSearchString(), startNumber)
             .subscribeOn(Schedulers.io())
+            .filter(Predicate {
+                if (it.isSuccessful) {
+                    for (item in it.body()?.items!!) {
+                        item.cacheId != null
+                    }
+                } else {
+                    false
+                }
+                true
+            })
             .observeOn(AndroidSchedulers.mainThread())
+            .map {
+                it
+            }
             .subscribe(object : NetworkResponse<Response<SearchBaseDataModel>, SearchBaseDataModel>() {
+                override fun onComplete() {
+                    mutableErrorLiveData.value = "completed"
+                }
+
                 override fun addDisposable(d: Disposable) {
                     disposable = d
                 }

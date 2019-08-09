@@ -70,8 +70,8 @@ class HomeActivity : AppCompatActivity() {
         homeActivityViewModel.observeForBaseLiveData().observe(this, Observer { baseData ->
             mainRecyclerAdapter.addData(baseData)
         })
-        homeActivityViewModel.observeForErrorLiveData().observe(this, Observer { baseData ->
-            //
+        homeActivityViewModel.observeForErrorLiveData().observe(this, Observer { error ->
+            Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
         })
         homeActivityViewModel.observeForItemClickLiveData().observe(this, Observer { itemData ->
             val intent = Intent(this, DetailActivity::class.java)

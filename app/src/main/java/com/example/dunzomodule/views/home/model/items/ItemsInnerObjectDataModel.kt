@@ -7,6 +7,8 @@ import com.google.gson.annotations.SerializedName
 class ItemsInnerObjectDataModel(
     @SerializedName("title")
     var title: String?,
+    @SerializedName("cacheId")
+    var cacheId: String?,
     @SerializedName("snippet")
     var snippet: String?,
     @SerializedName("pagemap")
@@ -15,11 +17,13 @@ class ItemsInnerObjectDataModel(
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
+        parcel.readString(),
         parcel.readValue(PagemapDataModel::class.java.classLoader) as PagemapDataModel?
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(title)
+        parcel.writeString(cacheId)
         parcel.writeString(snippet)
         parcel.writeValue(pagemap)
     }
