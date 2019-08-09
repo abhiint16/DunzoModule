@@ -2,6 +2,7 @@ package com.example.dunzomodule.views.home.model
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.example.dunzomodule.views.home.model.error.ErrorBaseModel
 import com.example.dunzomodule.views.home.model.items.ItemsInnerObjectDataModel
 import com.example.dunzomodule.views.home.model.queries.QueryDataModel
 import com.google.gson.annotations.SerializedName
@@ -11,17 +12,21 @@ class SearchBaseDataModel(
     @SerializedName("queries")
     var queries: QueryDataModel? = null,
     @SerializedName("items")
-    var items: List<ItemsInnerObjectDataModel>? = null
+    var items: List<ItemsInnerObjectDataModel>? = null,
+    @SerializedName("error")
+    var error: ErrorBaseModel? = null
 ) : Parcelable {
 
     constructor(parcel: Parcel) : this() {
         parcel.readValue(QueryDataModel::class.java.classLoader)
         parcel.readArrayList(ItemsInnerObjectDataModel::class.java.classLoader)
+        parcel.readValue(ErrorBaseModel::class.java.classLoader)
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeValue(queries)
         parcel.writeTypedList(items)
+        parcel.writeValue(error)
     }
 
     override fun describeContents(): Int {

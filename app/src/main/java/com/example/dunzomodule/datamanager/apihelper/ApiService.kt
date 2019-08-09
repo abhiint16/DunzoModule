@@ -15,4 +15,6 @@ interface ApiService {
         @Query("key") key: String,
         @Query("start") startNumber: Int
     ): Single<Response<SearchBaseDataModel>>
+
+
 }

@@ -13,6 +13,7 @@ import com.example.dunzomodule.views.home.model.items.ItemsInnerObjectDataModel
 import com.example.dunzomodule.views.home.model.queries.QueryDataModel
 import com.example.dunzomodule.views.home.viewmodel.HomeActivityViewModel
 
+
 class HomeRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var itemDataModelList: MutableList<ItemsInnerObjectDataModel> = ArrayList()
 
@@ -20,10 +21,15 @@ class HomeRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private lateinit var homeActivityViewModel: HomeActivityViewModel
 
+    private var startPos = 0
+
     fun addData(searchBaseDataModel: SearchBaseDataModel) {
         this.queryDataModel = searchBaseDataModel.queries
-        searchBaseDataModel.items?.let { this.itemDataModelList.addAll(it) }
-        notifyDataSetChanged()
+        searchBaseDataModel.items?.let {
+            this.itemDataModelList.addAll(it)
+            notifyItemRangeInserted(startPos, it.size)
+            startPos += it.size
+        }
     }
 
     fun setViewModel(homeActivityViewModel: HomeActivityViewModel) {
@@ -101,4 +107,5 @@ class HomeRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             //do nothing
         }
     }
+
 }

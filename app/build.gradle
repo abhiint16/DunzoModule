@@ -28,8 +28,10 @@ android {
         local {
             versionNameSuffix ".local"
             buildConfigField 'String', 'BASE_URL', '"https://www.googleapis.com/customsearch/v1/"'
-            buildConfigField 'String', 'CX', '"011476162607576381860:ra4vmliv9ti"'
-            buildConfigField 'String', 'API_KEY', '"AIzaSyDpMYRjzmp67tQoGDmCk8iun_rY657Lefs"'
+//            buildConfigField 'String', 'CX', '"011476162607576381860:ra4vmliv9ti"'
+//            buildConfigField 'String', 'API_KEY', '"AIzaSyDpMYRjzmp67tQoGDmCk8iun_rY657Lefs"'
+            buildConfigField 'String', 'CX', '"009568807155850041628:ymyqh-rdaeo"'
+            buildConfigField 'String', 'API_KEY', '"AIzaSyD-c-sBLyaip7f6J-00YARYI4hSiNa1ycM"'
         }
 
         dev {

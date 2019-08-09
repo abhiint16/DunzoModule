@@ -1,14 +1,17 @@
 package com.example.dunzomodule.views.home.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.dunzomodule.datamanager.DataManager
+import com.example.dunzomodule.utils.NetworkResponse
 import com.example.dunzomodule.views.home.model.SearchBaseDataModel
 import com.example.dunzomodule.views.home.model.items.ItemsInnerObjectDataModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import retrofit2.Response
 
 class HomeActivityViewModel : ViewModel {
     var dataManager: DataManager
@@ -30,13 +33,21 @@ class HomeActivityViewModel : ViewModel {
     fun getSearchData() {
         checkForStartNumber()
 
-        disposable = dataManager.getSearchData(dataManager.getSearchString(), startNumber)
+        dataManager.getSearchData(dataManager.getSearchString(), startNumber)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                mutableBaseLiveData.value = it.body()
-            }, {
-                mutableErrorLiveData.value = it.message
+            .subscribe(object : NetworkResponse<Response<SearchBaseDataModel>, SearchBaseDataModel>() {
+                override fun addDisposable(d: Disposable) {
+                    disposable = d
+                }
+
+                override fun onApiSuccess(desiredResponse: SearchBaseDataModel) {
+                    mutableBaseLiveData.value = desiredResponse
+                }
+
+                override fun onApiError(throwable: Throwable) {
+                    mutableErrorLiveData.value = throwable.message
+                }
             })
     }
 
