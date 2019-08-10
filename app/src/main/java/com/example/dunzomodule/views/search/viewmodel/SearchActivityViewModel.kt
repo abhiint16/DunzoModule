@@ -2,17 +2,12 @@ package com.example.dunzomodule.views.search.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.dunzomodule.datamanager.DataManager
+import com.example.dunzomodule.views.baseview.BaseViewModel
 
-class SearchActivityViewModel : ViewModel {
-    var dataManager: DataManager
+class SearchActivityViewModel(dataManager: DataManager) : BaseViewModel(dataManager) {
 
     var mutableLiveData = MutableLiveData<Boolean>()
-
-    constructor(dataManager: DataManager) : super() {
-        this.dataManager = dataManager
-    }
 
     fun saveSearchStringToPref(searchString: String) {
         dataManager.saveSearchString(searchString)
