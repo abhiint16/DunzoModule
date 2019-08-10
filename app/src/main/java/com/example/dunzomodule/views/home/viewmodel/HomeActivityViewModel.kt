@@ -26,7 +26,8 @@ class HomeActivityViewModel(dataManager: DataManager) : BaseViewModel(dataManage
 
     fun getSearchData() {
         checkForStartNumber()
-        showLoading()
+        if (startNumber == 1)
+            showLoading()
 
         dataManager.getSearchData(dataManager.getSearchString(), startNumber)
             .subscribeOn(Schedulers.io())
