@@ -2,17 +2,12 @@ package com.example.dunzomodule.views.detail.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.dunzomodule.datamanager.DataManager
+import com.example.dunzomodule.views.baseview.BaseViewModel
 
-class DetailActivityViewModel : ViewModel {
-    var dataManager: DataManager
+class DetailActivityViewModel(dataManager: DataManager) : BaseViewModel(dataManager) {
 
     internal var mutableLiveData = MutableLiveData<Boolean>()
-
-    constructor(dataManager: DataManager) : super() {
-        this.dataManager = dataManager
-    }
 
     fun testFun() {
         mutableLiveData.value = true
