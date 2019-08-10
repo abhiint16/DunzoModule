@@ -1,14 +1,12 @@
 package com.example.dunzomodule.views.baseview
 
-import android.app.Dialog
 import android.os.Bundle
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.ContentLoadingProgressBar
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.Observer
 import com.example.dunzomodule.utils.LoadingDialog
 import com.example.dunzomodule.utils.network.NetworkEvent
 import com.example.dunzomodule.utils.network.NetworkState
@@ -37,6 +35,7 @@ abstract class BaseActivity<Binding : ViewDataBinding, VM : BaseViewModel> : App
         initDependencyInjection()
         initBinding()
         initViewModel()
+        baseViewModelObserver()
         initObserver()
         setUp()
     }
@@ -73,6 +72,15 @@ abstract class BaseActivity<Binding : ViewDataBinding, VM : BaseViewModel> : App
 
     private fun initDependencyInjection() {
         AndroidInjection.inject(this)
+    }
+
+    protected fun baseViewModelObserver() {
+        viewModel.observeForDialog().observe(this@BaseActivity, Observer {
+            if (it)
+                showLoading()
+            else
+                hideLoading()
+        })
     }
 
     protected fun showToast(msg: String?) {

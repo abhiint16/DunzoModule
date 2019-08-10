@@ -35,6 +35,7 @@ class HomeActivityViewModel : BaseViewModel {
 
     fun getSearchData() {
         checkForStartNumber()
+        showLoading()
 
         dataManager.getSearchData(dataManager.getSearchString(), startNumber)
             .subscribeOn(Schedulers.io())
@@ -47,10 +48,12 @@ class HomeActivityViewModel : BaseViewModel {
 
                 override fun onApiSuccess(desiredResponse: SearchBaseDataModel) {
                     mutableBaseLiveData.value = desiredResponse
+                    hideLoading()
                 }
 
                 override fun onApiError(throwable: Throwable) {
                     mutableErrorLiveData.value = throwable.message
+                    hideLoading()
                 }
             })
     }

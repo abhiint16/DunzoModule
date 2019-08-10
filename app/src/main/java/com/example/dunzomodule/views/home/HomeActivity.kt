@@ -52,7 +52,6 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeActivityViewModel>() 
     override fun setUp() {
         initRecyclerView()
         getFirstPageData()
-        showLoading()
     }
 
     override fun initViewModel() {
