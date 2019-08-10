@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.example.dunzomodule.BuildConfig
 import com.example.dunzomodule.di.qualifier.BaseUrl
+import com.example.dunzomodule.utils.network.NetworkInterceptor
 import com.google.gson.GsonBuilder
 import com.readystatesoftware.chuck.ChuckInterceptor
 import dagger.Module
@@ -27,6 +28,7 @@ class NetworkModule {
     fun providesOkHttpClient(context: Context): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(ChuckInterceptor(context))
+            .addInterceptor(NetworkInterceptor(context))
             .addInterceptor(Interceptor { chain ->
                 val requestBody = chain.request()
                 val responseBody = chain.proceed(requestBody)

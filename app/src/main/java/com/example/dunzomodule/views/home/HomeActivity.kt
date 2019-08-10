@@ -13,11 +13,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.dunzomodule.AppConstants
 import com.example.dunzomodule.R
 import com.example.dunzomodule.databinding.ActivityHomeBinding
+import com.example.dunzomodule.utils.network.NetworkEvent
+import com.example.dunzomodule.utils.network.NetworkState
 import com.example.dunzomodule.views.detail.DetailActivity
 import com.example.dunzomodule.views.home.adapter.HomeRecyclerAdapter
 import com.example.dunzomodule.views.home.model.items.ItemsInnerObjectDataModel
 import com.example.dunzomodule.views.home.viewmodel.HomeActivityViewModel
 import dagger.android.AndroidInjection
+import io.reactivex.functions.Consumer
 import javax.inject.Inject
 
 class HomeActivity : AppCompatActivity() {
@@ -40,6 +43,27 @@ class HomeActivity : AppCompatActivity() {
         initRecyclerView()
         getFirstPageData()
         initObserver()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        NetworkEvent.register(this, Consumer {
+            when (it) {
+                NetworkState.NO_INTERNET -> showToast("No Internet")
+
+                NetworkState.NO_RESPONSE -> showToast("No Response")
+
+                NetworkState.UNAUTHORISED -> showToast("Un Authorised")
+
+                NetworkState.SUCCESS -> showToast("Success")
+
+                NetworkState.BILLINGERROR -> showToast("Billing not done")
+
+                NetworkState.RESPONSE -> showToast("Response")
+
+                NetworkState.CX_NOT_DEFINED -> showToast("Cx is not sent in query")
+            }
+        })
     }
 
     private fun getFirstPageData() {
@@ -71,12 +95,16 @@ class HomeActivity : AppCompatActivity() {
             mainRecyclerAdapter.addData(baseData)
         })
         homeActivityViewModel.observeForErrorLiveData().observe(this, Observer { error ->
-            Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
+            showToast(error)
         })
         homeActivityViewModel.observeForItemClickLiveData().observe(this, Observer { itemData ->
             val intent = Intent(this, DetailActivity::class.java)
             intent.putExtra(AppConstants.IntentKey.ITEM_CLICK_DATA, itemData)
             startActivity(intent)
         })
+    }
+
+    private fun showToast(msg: String?) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 }

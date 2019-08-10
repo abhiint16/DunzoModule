@@ -2,6 +2,7 @@
           package="com.example.dunzomodule">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application android:allowBackup="true"
                  android:name="com.example.dunzomodule.DunzoApp"

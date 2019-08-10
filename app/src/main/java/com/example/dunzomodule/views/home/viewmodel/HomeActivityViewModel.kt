@@ -37,24 +37,8 @@ class HomeActivityViewModel : ViewModel {
 
         dataManager.getSearchData(dataManager.getSearchString(), startNumber)
             .subscribeOn(Schedulers.io())
-            .filter(Predicate {
-                if (it.isSuccessful) {
-                    for (item in it.body()?.items!!) {
-                        item.cacheId != null
-                    }
-                } else {
-                    false
-                }
-                true
-            })
             .observeOn(AndroidSchedulers.mainThread())
-            .map {
-                it
-            }
             .subscribe(object : NetworkResponse<Response<SearchBaseDataModel>, SearchBaseDataModel>() {
-                override fun onComplete() {
-                    mutableErrorLiveData.value = "completed"
-                }
 
                 override fun addDisposable(d: Disposable) {
                     disposable = d

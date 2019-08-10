@@ -1,11 +1,12 @@
 package com.example.dunzomodule.utils
 
-import io.reactivex.MaybeObserver
+import android.util.Log
+import com.google.gson.Gson
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
 import retrofit2.Response
 
-abstract class NetworkResponse<ServerResponse, DesiredResponse> : MaybeObserver<ServerResponse> {
+abstract class NetworkResponse<ServerResponse, DesiredResponse> : SingleObserver<ServerResponse> {
 
     abstract fun onApiSuccess(desiredResponse: DesiredResponse)
 
@@ -16,13 +17,16 @@ abstract class NetworkResponse<ServerResponse, DesiredResponse> : MaybeObserver<
     override fun onSuccess(serverResponse: ServerResponse) {
         val response = serverResponse as Response<*>
 
+        Log.e("check4 desired response", "" + Gson().toJson(response.body()))
         if (response.isSuccessful) {
+
+            Log.e("check4 desired response", "" + Gson().toJson(response.body()))
 
             if (response.body() == null) {
                 onApiError(Throwable("Something went wrong..."))
                 return
             }
-
+            //Log.e("check4 desired response", "" + response.body())
             onApiSuccess(response.body() as DesiredResponse)
         } else {
             onApiError(Throwable(response.body().toString()))
