@@ -1,9 +1,7 @@
 package com.example.dunzomodule.views.home.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.dunzomodule.datamanager.DataManager
 import com.example.dunzomodule.utils.NetworkResponse
 import com.example.dunzomodule.views.baseview.BaseViewModel
@@ -11,13 +9,10 @@ import com.example.dunzomodule.views.home.model.SearchBaseDataModel
 import com.example.dunzomodule.views.home.model.items.ItemsInnerObjectDataModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.functions.Consumer
-import io.reactivex.functions.Predicate
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Response
 
-class HomeActivityViewModel : BaseViewModel {
-    var dataManager: DataManager
+class HomeActivityViewModel(dataManager: DataManager) : BaseViewModel(dataManager) {
 
     internal var mutableBaseLiveData = MutableLiveData<SearchBaseDataModel>()
 
@@ -28,10 +23,6 @@ class HomeActivityViewModel : BaseViewModel {
     lateinit var disposable: Disposable
 
     var startNumber = 0
-
-    constructor(dataManager: DataManager) : super() {
-        this.dataManager = dataManager
-    }
 
     fun getSearchData() {
         checkForStartNumber()
