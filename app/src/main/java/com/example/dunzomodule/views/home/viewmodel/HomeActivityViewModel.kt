@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.dunzomodule.datamanager.DataManager
 import com.example.dunzomodule.utils.NetworkResponse
+import com.example.dunzomodule.views.baseview.BaseViewModel
 import com.example.dunzomodule.views.home.model.SearchBaseDataModel
 import com.example.dunzomodule.views.home.model.items.ItemsInnerObjectDataModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -15,7 +16,7 @@ import io.reactivex.functions.Predicate
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Response
 
-class HomeActivityViewModel : ViewModel {
+class HomeActivityViewModel : BaseViewModel {
     var dataManager: DataManager
 
     internal var mutableBaseLiveData = MutableLiveData<SearchBaseDataModel>()

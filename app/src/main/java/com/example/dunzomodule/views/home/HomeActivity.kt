@@ -15,6 +15,7 @@ import com.example.dunzomodule.R
 import com.example.dunzomodule.databinding.ActivityHomeBinding
 import com.example.dunzomodule.utils.network.NetworkEvent
 import com.example.dunzomodule.utils.network.NetworkState
+import com.example.dunzomodule.views.baseview.BaseActivity
 import com.example.dunzomodule.views.detail.DetailActivity
 import com.example.dunzomodule.views.home.adapter.HomeRecyclerAdapter
 import com.example.dunzomodule.views.home.model.items.ItemsInnerObjectDataModel
@@ -23,63 +24,39 @@ import dagger.android.AndroidInjection
 import io.reactivex.functions.Consumer
 import javax.inject.Inject
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : BaseActivity<ActivityHomeBinding, HomeActivityViewModel>() {
 
     @Inject
     lateinit var factory: ViewModelProvider.Factory
 
-    lateinit var homeActivityViewModel: HomeActivityViewModel
-
-    lateinit var binding: ActivityHomeBinding
-
     lateinit var mainRecyclerAdapter: HomeRecyclerAdapter
     lateinit var linearLayoutManager: LinearLayoutManager
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initDagger()
-        initBinding()
-        initViewModel()
-        initRecyclerView()
-        getFirstPageData()
-        initObserver()
-    }
+    override val layout: Int
+        get() = R.layout.activity_home
 
-    override fun onResume() {
-        super.onResume()
-        NetworkEvent.register(this, Consumer {
-            when (it) {
-                NetworkState.NO_INTERNET -> showToast("No Internet")
-
-                NetworkState.NO_RESPONSE -> showToast("No Response")
-
-                NetworkState.UNAUTHORISED -> showToast("Un Authorised")
-
-                NetworkState.SUCCESS -> showToast("Success")
-
-                NetworkState.BILLINGERROR -> showToast("Billing not done")
-
-                NetworkState.RESPONSE -> showToast("Response")
-
-                NetworkState.CX_NOT_DEFINED -> showToast("Cx is not sent in query")
-            }
+    override fun initObserver() {
+        viewModel.observeForBaseLiveData().observe(this, Observer { baseData ->
+            mainRecyclerAdapter.addData(baseData)
+        })
+        viewModel.observeForErrorLiveData().observe(this, Observer { error ->
+            showToast(error)
+        })
+        viewModel.observeForItemClickLiveData().observe(this, Observer { itemData ->
+            val intent = Intent(this, DetailActivity::class.java)
+            intent.putExtra(AppConstants.IntentKey.ITEM_CLICK_DATA, itemData)
+            startActivity(intent)
         })
     }
 
-    private fun getFirstPageData() {
-        homeActivityViewModel.getSearchData()
+    override fun setUp() {
+        initRecyclerView()
+        getFirstPageData()
+        showLoading()
     }
 
-    private fun initViewModel() {
-        homeActivityViewModel = ViewModelProviders.of(this, factory).get(HomeActivityViewModel::class.java)
-    }
-
-    private fun initBinding() {
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
-    }
-
-    private fun initDagger() {
-        AndroidInjection.inject(this)
+    override fun initViewModel() {
+        viewModel = ViewModelProviders.of(this, factory).get(HomeActivityViewModel::class.java)
     }
 
     private fun initRecyclerView() {
@@ -87,24 +64,11 @@ class HomeActivity : AppCompatActivity() {
         linearLayoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         binding.recyclerView.setLayoutManager(linearLayoutManager)
         binding.recyclerView.setAdapter(mainRecyclerAdapter)
-        mainRecyclerAdapter.setViewModel(homeActivityViewModel)
+        mainRecyclerAdapter.setViewModel(viewModel)
     }
 
-    private fun initObserver() {
-        homeActivityViewModel.observeForBaseLiveData().observe(this, Observer { baseData ->
-            mainRecyclerAdapter.addData(baseData)
-        })
-        homeActivityViewModel.observeForErrorLiveData().observe(this, Observer { error ->
-            showToast(error)
-        })
-        homeActivityViewModel.observeForItemClickLiveData().observe(this, Observer { itemData ->
-            val intent = Intent(this, DetailActivity::class.java)
-            intent.putExtra(AppConstants.IntentKey.ITEM_CLICK_DATA, itemData)
-            startActivity(intent)
-        })
+    private fun getFirstPageData() {
+        viewModel.getSearchData()
     }
 
-    private fun showToast(msg: String?) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
-    }
 }
