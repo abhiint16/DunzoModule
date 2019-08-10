@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
-import com.example.dunzomodule.utils.LoadingDialog
+import com.example.dunzomodule.views.viewutil.LoadingDialog
 import com.example.dunzomodule.utils.network.NetworkEvent
 import com.example.dunzomodule.utils.network.NetworkState
 import dagger.android.AndroidInjection

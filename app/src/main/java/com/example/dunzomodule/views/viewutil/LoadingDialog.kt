@@ -1,4 +1,4 @@
-package com.example.dunzomodule.utils
+package com.example.dunzomodule.views.viewutil
 
 import android.app.Dialog
 import android.content.Context
