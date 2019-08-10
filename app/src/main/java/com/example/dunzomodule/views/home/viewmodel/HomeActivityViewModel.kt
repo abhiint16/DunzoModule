@@ -20,6 +20,8 @@ class HomeActivityViewModel(dataManager: DataManager) : BaseViewModel(dataManage
 
     internal var itemClickLiveData = MutableLiveData<ItemsInnerObjectDataModel>()
 
+    internal var toolbarTitleLiveData = MutableLiveData<String>()
+
     lateinit var disposable: Disposable
 
     var startNumber = 0
@@ -40,6 +42,7 @@ class HomeActivityViewModel(dataManager: DataManager) : BaseViewModel(dataManage
 
                 override fun onApiSuccess(desiredResponse: SearchBaseDataModel) {
                     mutableBaseLiveData.value = desiredResponse
+                    toolbarTitleLiveData.value = dataManager.getSearchString()
                     hideLoading()
                 }
 
@@ -63,6 +66,10 @@ class HomeActivityViewModel(dataManager: DataManager) : BaseViewModel(dataManage
 
     fun observeForBaseLiveData(): LiveData<SearchBaseDataModel> {
         return mutableBaseLiveData
+    }
+
+    fun observeForToolbarTitleLiveData(): LiveData<String> {
+        return toolbarTitleLiveData
     }
 
     fun observeForErrorLiveData(): LiveData<String> {

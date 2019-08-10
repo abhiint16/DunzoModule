@@ -39,6 +39,9 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeActivityViewModel>() 
         viewModel.observeForBaseLiveData().observe(this, Observer { baseData ->
             mainRecyclerAdapter.addData(baseData)
         })
+        viewModel.observeForToolbarTitleLiveData().observe(this, Observer { toolbarTitle ->
+            supportActionBar?.title = toolbarTitle
+        })
         viewModel.observeForErrorLiveData().observe(this, Observer { error ->
             showToast(error)
         })
