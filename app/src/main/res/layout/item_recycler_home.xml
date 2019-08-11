@@ -27,7 +27,6 @@
                     android:layout_width="200dp"
                     android:layout_height="200dp"
                     android:gravity="center"
-                    android:padding="10dp"
                     android:transitionName="@string/image_transition_name"
                     android:src="@drawable/default_image"
                     android:scaleType="fitXY"
