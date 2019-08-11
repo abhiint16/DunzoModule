@@ -27,6 +27,7 @@
                     android:gravity="center"
                     android:padding="10dp"
                     android:scaleType="fitXY"
+                    android:transitionName="@string/image_transition_name"
                     android:src="@drawable/default_image"
                     app:imageUrl="@{item.pagemap.cse_image.get(0).src}"
                     app:layout_constraintTop_toTopOf="parent"

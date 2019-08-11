@@ -1,6 +1,7 @@
 package com.example.dunzomodule.views.home.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +15,9 @@ import com.example.dunzomodule.views.home.model.queries.QueryDataModel
 import com.example.dunzomodule.views.home.viewmodel.HomeActivityViewModel
 
 
-class HomeRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class HomeRecyclerAdapter(
+    private val onDeliveryItemClicked: (item: ItemsInnerObjectDataModel, imageView: View) -> Unit
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var itemDataModelList: MutableList<ItemsInnerObjectDataModel> = ArrayList()
 
     private var queryDataModel: QueryDataModel? = QueryDataModel()
@@ -84,16 +87,24 @@ class HomeRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    class ViewHolder : RecyclerView.ViewHolder {
+    inner class ViewHolder : RecyclerView.ViewHolder, View.OnClickListener {
+
         var binding: ItemRecyclerHomeBinding
+        lateinit var item: ItemsInnerObjectDataModel
 
         constructor(itemView: ItemRecyclerHomeBinding) : super(itemView.getRoot()) {
             this.binding = itemView
+            binding.root.setOnClickListener(this)
         }
 
         fun bind(item: ItemsInnerObjectDataModel, viewModel: HomeActivityViewModel) {
             binding.item = item
             binding.viewModel = viewModel
+            this.item = item
+        }
+
+        override fun onClick(p0: View?) {
+            onDeliveryItemClicked(item, binding.image)
         }
     }
 

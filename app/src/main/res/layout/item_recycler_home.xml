@@ -16,7 +16,6 @@
             android:layout_height="wrap_content"
             app:contentPadding="20dp"
             android:layout_margin="20dp"
-            android:onClick="@{() -> viewModel.homeItemClick(item)}"
             android:background="@android:color/white"
             app:cardCornerRadius="8dp">
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,6 +28,7 @@
                     android:layout_height="200dp"
                     android:gravity="center"
                     android:padding="10dp"
+                    android:transitionName="@string/image_transition_name"
                     android:src="@drawable/default_image"
                     android:scaleType="fitXY"
                     app:imageUrl="@{item.pagemap.cse_image.get(0).src}"
